@@ -22,6 +22,13 @@ class App extends React.Component {
     this.state = {
       currentVideo: window.exampleVideoData[0]
     };
+    this.onClickVideo = this.onClickVideo.bind(this);
+  }
+
+  onClickVideo(e) {
+    let clickedId = e.target.getAttribute('id');
+    let filteredVideo = window.exampleVideoData.filter(video => video.id.videoId === clickedId)[0];
+    this.setState({currentVideo: filteredVideo});
   }
 
   render () {
@@ -38,7 +45,7 @@ class App extends React.Component {
           <VideoPlayer video={selectedVideo}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={window.exampleVideoData}/>
+          <VideoList videos={window.exampleVideoData} clickEvent={this.onClickVideo}/>
         </div>
       </div>
     );
