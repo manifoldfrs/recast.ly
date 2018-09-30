@@ -25,8 +25,7 @@ class App extends React.Component {
   }
 
   render () {
-    let selectedVideo = window.exampleVideoData[0];
-    console.log('first');
+    let selectedVideo = this.state.currentVideo;
 
     return (
       <div>
