@@ -19,9 +19,15 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentVideo: window.exampleVideoData[0]
+    };
   }
 
   render () {
+    let selectedVideo = window.exampleVideoData[0];
+    console.log('first');
+
     return (
       <div>
         <nav className="navbar">
@@ -29,13 +35,11 @@ class App extends React.Component {
             <div><h5><em>search</em> view goes here</h5></div>
           </div>
         </nav>
-        <div className="row">
-          <div className="col-md-7">
-            <VideoPlayer video={window.exampleVideoData[0]}/>
-          </div>
-          <div className="col-md-5">
-            <VideoList videos={window.exampleVideoData}/>
-          </div>
+        <div className="col-md-7">
+          <VideoPlayer video={selectedVideo}/>
+        </div>
+        <div className="col-md-5">
+          <VideoList videos={window.exampleVideoData}/>
         </div>
       </div>
     );
