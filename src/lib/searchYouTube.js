@@ -13,8 +13,9 @@ var searchYouTube = (options, callback) => {
       maxResults: options.max
     },
     success: (data) => {
-      if(data) {
+      if (data) {
         console.log('Success: ', data.items);
+        callback(data.items);
       }
     },
     error: (data) => {
