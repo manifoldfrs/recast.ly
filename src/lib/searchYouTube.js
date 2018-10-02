@@ -1,26 +1,26 @@
 var searchYouTube = (options, callback) => {
 
   $.ajax({
-    url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=',
+    url: 'https://www.googleapis.com/youtube/v3/search',
     type: 'GET',
     dataType: 'json',
-    key: window.YOUTUBE_API_KEY,
-    query: 'string',
-    part: 'snippet',
-    videoEmbeddable: true,
-    max: 5,
-    success: () => {
-      console.log("Successfully received data!");
+    data: {
+      type: 'video',
+      key: options.key,
+      q: options.query,
+      part: 'id,snippet',
+      videoEmbeddable: 'true',
+      maxResults: options.max
     },
-    fail: () => {
-      console.log('Error:', data);
+    success: (data) => {
+      if(data) {
+        console.log('Success: ', data.items);
+      }
+    },
+    error: (data) => {
+      console.log('error', data);
     }
 
-
-
-
-  }).done((data) => {
-    callback(data.items);
   });
 };
 
