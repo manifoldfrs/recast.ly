@@ -20,20 +20,31 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: null,
-      collectionOfVideos: null,
+      currentVideo: window.exampleVideoData[0],
+      collectionOfVideos: [],
+      q: 'Darth Vader',
+      max: 5,
+      key: YOUTUBE_API_KEY
     };
-    window.searchYouTube({q: 'darth vader', max: 5, key: YOUTUBE_API_KEY}, (videos) => {
-      this.setState({currentVideo: videos[0], collectionOfVideos: videos});
-    });
+    // window.searchYouTube({q: 'darth vader', max: 5, key: YOUTUBE_API_KEY}, (videos) => {
+    //   this.setState({currentVideo: videos[0], collectionOfVideos: videos});
+    // });
     this.onClickVideo = this.onClickVideo.bind(this);
   }
-  // componentDidMount() {
-  //   window.searchYouTube({q: 'darth vader', max: 5, key: YOUTUBE_API_KEY}, (videos) => {
-  //     console.log('Videos: ', videos);
-  //     this.setState({currentVideo: videos[0], collectionOfVideos: videos});
-  //   });
-  // }
+
+  componentDidMount() {
+    let options = {
+      query: this.state.q,
+      max: this.state.max,
+      key: this.state.key
+    };
+    this.props.searchYouTube(options, (items) => {
+      this.setState({
+        currentVideo: items[0],
+        collectionOfVideos: items
+      });
+    });
+  }
 
   onClickVideo(e) {
     let clickedId = e.target.getAttribute('id');
@@ -42,7 +53,6 @@ class App extends React.Component {
   }
 
   render () {
-    let selectedVideo = this.state.currentVideo;
 
     if (this.state.currentVideo === null && this.state.collectionOfVideos === null) {
       return (
