@@ -24,17 +24,18 @@ class App extends React.Component {
       collectionOfVideos: [],
       q: 'Darth Vader',
       max: 5,
-      key: YOUTUBE_API_KEY
+      key: window.YOUTUBE_API_KEY
     };
     // window.searchYouTube({q: 'darth vader', max: 5, key: YOUTUBE_API_KEY}, (videos) => {
     //   this.setState({currentVideo: videos[0], collectionOfVideos: videos});
     // });
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.onClickVideo = this.onClickVideo.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(event) {
     let options = {
-      query: this.state.q,
+      query: event || this.state.q,
       max: this.state.max,
       key: this.state.key
     };
@@ -73,7 +74,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search componentDidMount={this.componentDidMount}/>
           </div>
         </nav>
         <div className="col-md-7">
